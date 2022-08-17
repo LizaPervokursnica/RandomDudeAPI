@@ -17,20 +17,32 @@ namespace RandomDudeAPI.Services
         public Human GetPerson()
         {
             var gender = EnumValue.GetGenderValue();
+
             var firstCity = _context.Cities.First();
 
+            var lastName = SelectName.GetLastName(_context, gender);
 
             return new Human { 
                 Id = 1, 
                 City = firstCity, 
-                FirstName = SelectName.GetFirstName(_context, gender), 
-                LastName = SelectName.GetLastName(_context, gender), 
+                FirstName = SelectName.GetFirstName(_context, gender).TrimEnd(), 
+                LastName = lastName, 
                 MiddleName = SelectName.GetMiddleName(_context, gender),
-                Birthdate = DateTime.Now,
-                Email = "asfqasf@asdgt.re", 
-                PhoneNumber = "8124124",
+                Birthdate = PersonBorn.GetBirthdate(),
+                Email = PersonContact.GetEmail(lastName),
+                PhoneNumber = PersonContact.GetPhone(),
                 Gender = TranslateEnum.GetDescription(gender)
             };
+        }
+
+        public IEnumerable<Human> GetPersons(int count)
+        {
+            var persons = new List<Human>();
+            for (int i = 0; i <= count; i++)
+            {
+                persons.Add(GetPerson());
+            }
+            return persons;
         }
     }
 }
