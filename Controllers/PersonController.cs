@@ -16,5 +16,9 @@ namespace RandomDudeAPI.Controllers
 
         [HttpGet]
         public Human GetPerson() => _service.GetPerson();
+
+        [HttpGet("{count}")]
+        public IEnumerable<Human> GetPersons(int count) => _service.GetPersons(count);
+        
     }
 }
