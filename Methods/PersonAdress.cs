@@ -8,14 +8,13 @@ namespace RandomDudeAPI.Methods
     {
         public static Adress GetAdress(PersonContext context)
         {
-            var regionIds = context.Regions.Select(x => x.Id).ToArray();
+            var regionIds = context.Regions.Include(x => x.Cities).Where(x => x.Cities.Any()).Select(x => x.Id).ToArray();
             var regionId = regionIds[Random.Shared.Next(regionIds.Length)];
             var region = context.Regions.Include(x => x.Cities).Include(x => x.Country).First(x => x.Id == regionId);
             
-            while (region.Cities.Any() == false)
-            {
+          
                 region = context.Regions.Include(x => x.Cities).Include(x => x.Country).First(x => x.Id == regionId);
-            }
+            
             var regionCitiyIds = region.Cities.Select(x => x.Id).ToArray();
             
             var cityId = regionCitiyIds[Random.Shared.Next(regionCitiyIds.Length)];
