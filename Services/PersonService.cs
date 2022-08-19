@@ -1,34 +1,25 @@
 ﻿using RandomDudeAPI.Data;
 using RandomDudeAPI.Methods;
 using RandomDudeAPI.Models;
-using RandomDudeAPI.Models.Enums;
-using System;
 
 namespace RandomDudeAPI.Services
 {
     public class PersonService
     {
         private readonly PersonContext _context;
-        public PersonService(PersonContext context)
-        {
-            _context = context; 
-        }
-
+        public PersonService(PersonContext context) => _context = context; 
+        
         public Human GetPerson()
         {
             var gender = EnumValue.GetGenderValue();
-
-            var firstCity = _context.Cities.First();
-
+            
             var lastName = SelectName.GetLastName(_context, gender);
-
             return new Human { 
-                Id = 1, 
-                City = firstCity, 
+                Adress = PersonAdress.GetAdress(_context), 
                 FirstName = SelectName.GetFirstName(_context, gender).TrimEnd(), 
                 LastName = lastName, 
                 MiddleName = SelectName.GetMiddleName(_context, gender),
-                Birthdate = PersonBorn.GetBirthdate(),
+                Birthdate = PersonBorn.GetBirthdate().ToString("d"),
                 Email = PersonContact.GetEmail(lastName),
                 PhoneNumber = PersonContact.GetPhone(),
                 Gender = TranslateEnum.GetDescription(gender)

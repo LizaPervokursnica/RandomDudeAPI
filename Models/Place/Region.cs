@@ -8,5 +8,7 @@ namespace RandomDudeAPI.Models.Place
         public string Name { get; set; }
         [JsonIgnore]
         public ICollection<City> Cities { get; set; }
+
+        public Country Country { get; set; }
     }
 }

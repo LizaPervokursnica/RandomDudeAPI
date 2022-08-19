@@ -39,7 +39,7 @@ namespace RandomDudeAPI.Methods
         private static string TransformLastName(string lastname)
         {
             if (lastname.EndsWith("ый") || lastname.EndsWith("ий"))
-                return lastname.Remove(lastname.Length - 3) + "ая";
+                return lastname.Remove(lastname.Length - 2) + "ая";
             if (lastname.EndsWith("ов") || lastname.EndsWith("ев") || lastname.EndsWith("ин") || lastname.EndsWith("ёв"))
                 return lastname + "а";
             return lastname;

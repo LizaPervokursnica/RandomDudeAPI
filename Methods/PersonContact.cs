@@ -4,13 +4,20 @@
     {
         private static string[] domens =
         {
+            "yandex.ru",
+            "narod.ru",
             "ya.ru",
-            "google.com",
-            "yahoo.com",
-            "outlook.com",
-            "yandex.kz",
             "yandex.com",
+            "yandex.ua",
+            "yandex.kz",
+            "yandex.by",
             "mail.ru",
+            "list.ru",
+            "inbox.ru",
+            "bk.ru",
+            "gmail.com",
+            "yahoo.com",
+            "outlook.com"
         };
         public static string GetEmail(string surname) => Translate(surname.ToLower()) + $"{(Random.Shared.Next(2) == 1 ? '_' : string.Empty)}" + Random.Shared.Next(1, 10000) + "@" + domens[Random.Shared.Next(domens.Length)];
 
